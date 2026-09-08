@@ -1,20 +1,17 @@
-trigger:
-- main
+jobs:
+- job: RunTests
+  displayName: 'Python Automated Tests'
 
-pool:
-  vmImage: ubuntu-latest
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+    displayName: 'Install Python'
 
-steps:
+  - script: |
+      python -m pip install pytest
+    displayName: 'Install pytest'
 
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.x'
-  displayName: 'Install Python'
-
-- script: |
-    python -m pip install pytest
-  displayName: 'Install pytest'
-
-- script: |
-    python -m pytest test.py
-  displayName: 'Run automated tests'
+  - script: |
+      python -m pytest test.py
+    displayName: 'Run automated tests'
