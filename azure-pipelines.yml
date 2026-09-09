@@ -1,17 +1,21 @@
-jobs:
-- job: RunTests
-  displayName: 'Python Automated Tests'
+# CI pipeline for Python automated tests
 
-  steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-    displayName: 'Install Python'
+trigger:
+- main
 
-  - script: |
-      python -m pip install pytest
-    displayName: 'Install pytest'
+pool:
+  vmImage: ubuntu-latest
 
-  - script: |
-      python -m pytest test.py
-    displayName: 'Run automated tests'
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+  displayName: 'Install Python'
+
+- script: |
+    python -m pip install pytest
+  displayName: 'Install pytest'
+
+- script: |
+    python -m pytest test.py
+  displayName: 'Run automated tests'
