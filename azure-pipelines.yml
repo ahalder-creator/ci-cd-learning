@@ -1,3 +1,5 @@
+# CI pipeline for Python automated tests
+
 trigger:
 - main
 
