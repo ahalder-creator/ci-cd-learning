@@ -19,3 +19,12 @@ steps:
 - script: |
     python -m pytest test.py
   displayName: 'Run automated tests'
+
+- task: AzureWebApp@1
+  displayName: 'Deploy to Azure App Service'
+  inputs:
+    azureSubscription: 'sc-cd-ci-cd-learning'
+    appType: 'webAppLinux'
+    appName: 'ahalder-cicd-learning'
+    startUpCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+    package: '$(System.DefaultWorkingDirectory)'
